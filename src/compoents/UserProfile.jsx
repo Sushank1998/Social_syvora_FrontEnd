@@ -5,7 +5,7 @@ function UserProfile() {
   const followers = useSelector((state) => state.searchName?.follow || []);
   const userProfileSelector = useSelector((state) => state.userProfile.user);
    const [newProfilePicture] = useState(
-      "http://localhost:5432" + userProfileSelector?.profilePicture || ""
+      "BACKEND_URL" + userProfileSelector?.profilePicture || ""
     );
   
   
@@ -16,7 +16,7 @@ console.log("selecter",userProfileSelector)
 
   <div className="flex flex-col items-center">
     <img
-      src={"http://localhost:5432" + userProfileSelector?.profilePicture || newProfilePicture }
+      src={"BACKEND_URL" + userProfileSelector?.profilePicture || newProfilePicture }
       alt="Profile"
       className="w-24 h-24 rounded-full object-cover border-4 border-[#ff6600] shadow-md hover:scale-105 transition-transform duration-300"
     />

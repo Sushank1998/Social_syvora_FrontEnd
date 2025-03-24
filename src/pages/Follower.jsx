@@ -19,7 +19,7 @@ function Follower() {
           authorization: user?.accessToken,
         };
 
-        const response = await axios.get(`http://localhost:5432/api/v1/mefollowing/${userID}`, { headers });
+        const response = await axios.get(`BACKEND_URL/api/v1/mefollowing/${userID}`, { headers });
 
         if (response.status === 200) {
           setFollowers(response.data.data); 
@@ -53,7 +53,7 @@ function Follower() {
       };
 
  
-      const response = await axios.post('http://localhost:5432/api/v1/unfollowing', requestBody, { headers });
+      const response = await axios.post('BACKEND_URL/api/v1/unfollowing', requestBody, { headers });
 
 
       if (response.status === 200) {

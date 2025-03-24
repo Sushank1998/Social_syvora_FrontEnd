@@ -13,7 +13,7 @@ function MyPost() {
   useEffect(() => {
     const fetchdata = async () => {
       const res = await axios.get(
-        `http://localhost:5432/api/v1/posts/${userID}`,
+        `BACKEND_URL/api/v1/posts/${userID}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -34,7 +34,7 @@ function MyPost() {
       // Sending DELETE request to API
     
       const response = await axios.post(
-        `http://localhost:5432/api/v1/deletePost/${postId}`, // URL
+        `BACKEND_URL/api/v1/deletePost/${postId}`, // URL
         {}, // Empty body (if there is no body data)
         {
           headers: {
@@ -73,7 +73,7 @@ function MyPost() {
             >
               {/* Post Image */}
               <img
-                src={"http://localhost:5432" + photo.image}
+                src={"BACKEND_URL" + photo.image}
                 alt="Post"
                 className="w-full h-48 object-cover rounded-lg border border-gray-700"
               />

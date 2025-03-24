@@ -30,7 +30,7 @@ function Post() {
     try {
      
       const response = await axios.post(
-        "http://localhost:5432/api/v1/love-post",
+        "BACKEND_URL/api/v1/love-post",
         requestBody,
         {
           headers: {
@@ -53,7 +53,7 @@ function Post() {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const res = await axios.get(`http://localhost:5432/api/v1/posts`, {
+      const res = await axios.get(`BACKEND_URL/api/v1/posts`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -79,7 +79,7 @@ function Post() {
           >
             <div className="flex items-center gap-4 mb-4">
               <img
-                src={"http://localhost:5432"+photo.user.avatar || "https://via.placeholder.com/50"}
+                src={"BACKEND_URL"+photo.user.avatar || "https://via.placeholder.com/50"}
                 alt="userPhoto"
                 className="w-12 h-12 rounded-full border-2 border-[#ff6600]"
               />
@@ -87,7 +87,7 @@ function Post() {
             </div>
 
             <img
-              src={"http://localhost:5432" + photo.image}
+              src={"BACKEND_URL" + photo.image}
               alt="Post"
               className="w-full max-h-96 rounded-lg object-cover border border-gray-700 mb-4"
             />

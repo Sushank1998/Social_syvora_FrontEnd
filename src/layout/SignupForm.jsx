@@ -27,7 +27,7 @@ export default function SignupForm({ setLogin }) {
 
   const fetch = async () => {
     const res = await axios.post(
-      "http://localhost:5432/api/v1/register",
+      "BACKEND_URL/api/v1/register",
       {
         username: name,
         email: email,

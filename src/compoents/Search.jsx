@@ -15,7 +15,7 @@ function Search() {
 
   const fetchname = async () => {
     try {
-      const res = await axios.get("http://localhost:5432/api/v1/all-profiles?name=" + query, {
+      const res = await axios.get("BACKEND_URL/api/v1/all-profiles?name=" + query, {
         headers: {
           "Content-Type": "application/json",
           authorization: user?.accessToken,
@@ -66,7 +66,7 @@ function Search() {
   
 
     try {
-      const res = await axios.post("http://localhost:5432/api/v1/following", requestBody, {
+      const res = await axios.post("BACKEND_URL/api/v1/following", requestBody, {
         headers: headers,
       });
       
