@@ -20,7 +20,7 @@ export default function LoginForm({ setLogin }) {
     setLoading(true);
     try {
       const res = await axios.post(
-        "BACKEND_URL/api/v1/login",
+        "http://localhost:5432/api/v1/login",
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       );

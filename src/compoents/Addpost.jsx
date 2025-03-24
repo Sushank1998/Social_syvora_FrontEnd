@@ -38,7 +38,7 @@ const handleSubmit = async (e) => {
 
     alert(formData);
     const res = await axios.post(
-      `BACKEND_URL/api/v1/upload-image-post-local/${userID}`,
+      `http://localhost:5432/api/v1/upload-image-post-local/${userID}`,
       formData,     
       {
         headers: {

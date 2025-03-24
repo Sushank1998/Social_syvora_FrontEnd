@@ -16,13 +16,13 @@ function Profile() {
   const [bio, setBio] = useState(userProfileSelector?.bio || "");
   const [file, setFile] = useState(null);
   const [newProfilePicture, setNewProfilePicture] = useState(
-    "BACKEND_URL" + userProfileSelector?.profilePicture || ""
+    "http://localhost:5432" + userProfileSelector?.profilePicture || ""
   );
 
   useEffect(() => {
     const fetchapi = async () => {
       const res = await axios.get(
-        `BACKEND_URL/api/v1/user/profile/me/${newEmail}`,
+        `http://localhost:5432/api/v1/user/profile/me/${newEmail}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -53,7 +53,7 @@ function Profile() {
 
     try {
       const res = await axios.put(
-        `BACKEND_URL/api/v1/user/${newEmail}`,
+        `http://localhost:5432/api/v1/user/${newEmail}`,
         {
           bio: bio,
         },
@@ -87,7 +87,7 @@ function Profile() {
   
     try {
       const res = await axios.post(
-        `BACKEND_URL/api/v1/upload-image-local/${newEmail}`,
+        `http://localhost:5432/api/v1/upload-image-local/${newEmail}`,
         formData,  
         {
           headers: {
@@ -122,7 +122,7 @@ console.log("newProfilePicture",newProfilePicture)
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col items-center">
           <img
-            src={"BACKEND_URL" + userProfileSelector?.profilePicture }
+            src={"http://localhost:5432" + userProfileSelector?.profilePicture }
             alt="Profile"
             className="w-24 h-24 rounded-full border-4 border-[#ff6600] shadow-md hover:scale-105 transition-transform duration-300"
           />

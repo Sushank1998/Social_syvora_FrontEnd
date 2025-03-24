@@ -13,7 +13,7 @@ function MyPost() {
   useEffect(() => {
     const fetchdata = async () => {
       const res = await axios.get(
-        `BACKEND_URL/api/v1/posts/${userID}`,
+        `http://localhost:5432/api/v1/posts/${userID}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -34,7 +34,7 @@ function MyPost() {
       // Sending DELETE request to API
     
       const response = await axios.post(
-        `BACKEND_URL/api/v1/deletePost/${postId}`, // URL
+        `http://localhost:5432/api/v1/deletePost/${postId}`, // URL
         {}, // Empty body (if there is no body data)
         {
           headers: {
@@ -64,7 +64,7 @@ function MyPost() {
     <div className="max-w-5xl mx-auto p-6">
       <h2 className="text-white text-2xl font-bold mb-6 text-center">All Posts</h2>
 
-      {postdata.length > 0 ? (
+      { postdata && postdata.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {postdata.map((photo, index) => (
             <div
@@ -73,7 +73,7 @@ function MyPost() {
             >
               {/* Post Image */}
               <img
-                src={"BACKEND_URL" + photo.image}
+                src={"http://localhost:5432" + photo.image}
                 alt="Post"
                 className="w-full h-48 object-cover rounded-lg border border-gray-700"
               />

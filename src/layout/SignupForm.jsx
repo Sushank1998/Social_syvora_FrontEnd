@@ -25,9 +25,9 @@ export default function SignupForm({ setLogin }) {
 
   console.log(email, name, password);
 
-  const fetch = async () => {
-    const res = await axios.post(
-      "BACKEND_URL/api/v1/register",
+  const fetch =  () => {
+    const res =  axios.post(
+      "http://localhost:5432/api/v1/register",
       {
         username: name,
         email: email,
@@ -40,6 +40,8 @@ export default function SignupForm({ setLogin }) {
       }
     );
     console.log("res=====",res)
+    dispatch(login({name,email}));
+    window.location.reload();
   };
   
   return (

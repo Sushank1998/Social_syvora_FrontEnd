@@ -5,7 +5,7 @@ function UserProfile() {
   const followers = useSelector((state) => state.searchName?.follow || []);
   const userProfileSelector = useSelector((state) => state.userProfile.user);
    const [newProfilePicture] = useState(
-      "BACKEND_URL" + userProfileSelector?.profilePicture || ""
+      "http://localhost:5432" + userProfileSelector?.profilePicture || ""
     );
   
   
@@ -16,7 +16,7 @@ console.log("selecter",userProfileSelector)
 
   <div className="flex flex-col items-center">
     <img
-      src={"BACKEND_URL" + userProfileSelector?.profilePicture || newProfilePicture }
+      src={"http://localhost:5432" + userProfileSelector?.profilePicture || newProfilePicture }
       alt="Profile"
       className="w-24 h-24 rounded-full object-cover border-4 border-[#ff6600] shadow-md hover:scale-105 transition-transform duration-300"
     />
@@ -29,10 +29,7 @@ console.log("selecter",userProfileSelector)
     <p className="text-gray-400 text-xs sm:text-sm uppercase">Followers</p>
     <p className="text-xl sm:text-2xl font-semibold text-[#ff6600]">{followers.length}</p>
   </div>
-  <div className="text-center">
-    <p className="text-gray-400 text-xs sm:text-sm uppercase">Following</p>
-    <p className="text-xl sm:text-2xl font-semibold text-[#ff6600]">11</p>
-  </div>
+
 </div>
 </div>
 
