@@ -11,7 +11,7 @@ function Search() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
-  const [userID] =useState(user.user_id)
+  const [userID] =useState(user?.user_id)
 
   const fetchname = async () => {
     try {

@@ -8,7 +8,7 @@ function Post() {
 
  const user = useSelector((state) => state.auth.user);
    
- const [userID] = useState(user.user_id)
+ const [userID] = useState(user?.user_id)
   const [images, setImages] = useState([]);
 
 

@@ -3,13 +3,14 @@ import { useSelector } from "react-redux";
 
 function UserProfile() {
   const followers = useSelector((state) => state.searchName?.follow || []);
-  const userProfileSelector = useSelector((state) => state.userProfile.user);
+  const userProfileSelector = useSelector((state) => state.auth.user);
+  const test = useSelector((state) => state);
    const [newProfilePicture] = useState(
       "http://localhost:5432" + userProfileSelector?.profilePicture || ""
     );
-  
-  
+    
 console.log("selecter",userProfileSelector)
+console.log("testState",test)
 
   return (
 <div className="max-w-sm mx-auto bg-gray-900 text-white rounded-2xl shadow-xl p-6 mt-5 sm:mt-10 md:mt-14 transition-all duration-300">

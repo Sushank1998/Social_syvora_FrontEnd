@@ -7,7 +7,7 @@ function Profile() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
-  const userProfileSelector = useSelector((state) => state.userProfile.user);
+  const userProfileSelector = useSelector((state) => state.auth.user);
 
   const [isEditing, setIsEditing] = useState(false);
 

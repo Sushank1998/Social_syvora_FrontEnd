@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login, userData } from "../features/authSlice";
+import { login, } from "../features/authSlice";
 import axios from "axios";
 
 export default function SignupForm({ setLogin }) {
@@ -23,15 +23,16 @@ export default function SignupForm({ setLogin }) {
     }
   };
 
-  console.log(email, name, password);
 
-  const fetch =  () => {
-    const res =  axios.post(
+
+  const fetch = async () => {
+    const res = await axios.post(
       "http://localhost:5432/api/v1/register",
       {
         username: name,
         email: email,
         password: password,
+
       },
       {
         headers: {
@@ -40,8 +41,11 @@ export default function SignupForm({ setLogin }) {
       }
     );
     console.log("res=====",res)
-    dispatch(login({name,email}));
-    window.location.reload();
+    console.log("res=====",res.data.accessToken)
+    const token = res.data.accessToken
+    
+    dispatch(login({name,email,token}));
+   
   };
   
   return (

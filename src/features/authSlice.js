@@ -15,15 +15,17 @@ export const authSlice = createSlice({
   reducers: {
     userData: (state, action) => {
       const { email, name, password } = action.payload;
-      console.log("action.payload",action.payload)
 
-      state.user = { email, name, password }; 
-    console.log("sss",state)
-    console.log("sss",state.user)
+    
+    state.user = { email, name, password }; 
+    console.log("StateName==>",state)
+    console.log("State.user",state.user)
+  
     },
     login: (state, action) => {
       state.isAuthenticated = true;
       state.user = action.payload;  
+      console.log("action.payload",action.payload)
     },
     logout: (state) => {
       state.isAuthenticated = false;
