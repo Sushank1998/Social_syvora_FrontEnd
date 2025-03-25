@@ -9,10 +9,10 @@ export const userProfileSlice = createSlice({
     initialState,
     reducers: {
         userProfile: (state,action)=>{
-            const { email, name, profilePicture,dob,bio } = action.payload;
+            const { email, username, profilePicture,dob,bio } = action.payload;
             console.log("action.payload",action.payload)
       
-            state.user = { email, name, profilePicture,dob,bio }; 
+            state.user = { email, username, profilePicture,dob,bio }; 
         }
     }
 })

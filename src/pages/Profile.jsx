@@ -6,12 +6,17 @@ import axios from "axios";
 function Profile() {
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.auth.user);
+  // const user = useSelector((state) => state.auth.user);
   const userProfileSelector = useSelector((state) => state.auth.user);
+  const uniquename = userProfileSelector?.name || userProfileSelector?.username 
+  console.log("userProfileSelector",userProfileSelector)
+
+
+ 
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const [newEmail] = useState(user?.email || "");
+  const [newEmail] = useState(userProfileSelector?.email || "");
   const [newPassword, setNewPassword] = useState("");
   const [bio, setBio] = useState(userProfileSelector?.bio || "");
   const [file, setFile] = useState(null);
@@ -19,6 +24,7 @@ function Profile() {
     "http://localhost:5432" + userProfileSelector?.profilePicture || ""
   );
 
+  
   useEffect(() => {
     const fetchapi = async () => {
       const res = await axios.get(
@@ -26,11 +32,11 @@ function Profile() {
         {
           headers: {
             "Content-Type": "application/json",
-            authorization: user?.accessToken,
+            authorization: userProfileSelector?.accessToken,
           },
         }
       );
-
+      console.log("resdata==.>>",res.data)
       let updatedUser2 = {
         name: res.data.username,
         email: res.data.email,
@@ -40,13 +46,14 @@ function Profile() {
       };
 
       dispatch(userProfile(updatedUser2));
+
     };
 
     fetchapi();
   }, []);
 
   const handleUpdate = async () => {
-    if (!user?.accessToken) {
+    if (!userProfileSelector?.token) {
       alert("User is not authenticated.");
       return;
     }
@@ -60,13 +67,14 @@ function Profile() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: user?.accessToken,
+            Authorization: userProfileSelector?.accessToken,
           },
         }
       );
     
 
-      console.log("Profile updated:", res.data);
+
+
     } catch (error) {
       console.error(
         "Error updating profile:",
@@ -83,7 +91,7 @@ function Profile() {
       return;
     }
     const formData = new FormData();
-    formData.append("image", file); // selectedFile is the uploaded file
+    formData.append("image", file);
   
     try {
       const res = await axios.post(
@@ -92,11 +100,11 @@ function Profile() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            authorization: user?.accessToken,
+            authorization: userProfileSelector?.accesstoken,
           },
         }
       );
-      console.log("Profile updated:", res.data);
+      console.log("Profile updatedsssss:", res.data);
 
       alert("Profile updated successfully!");
     } catch (error) {
@@ -116,7 +124,7 @@ function Profile() {
       reader.readAsDataURL(selectedFile);
     }
   };
-console.log("newProfilePicture",newProfilePicture)
+console.log("newProfilePicture",userProfileSelector.newProfilePicture)
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-gray-900 text-white shadow-lg rounded-xl transition-all duration-300">
       <form onSubmit={handleSubmit}>
@@ -143,12 +151,15 @@ console.log("newProfilePicture",newProfilePicture)
           </button>
 
           <h2 className="text-xl font-semibold mt-4">
-            {userProfileSelector?.name}
+          { uniquename}
           </h2>
+          
           <p className="text-gray-400">{userProfileSelector?.email}</p>
           <p className="text-gray-500 text-sm">{userProfileSelector?.bio}</p>
         </div>
       </form>
+
+
       {isEditing ? (
         <div className="mt-4 space-y-3">
           <input
