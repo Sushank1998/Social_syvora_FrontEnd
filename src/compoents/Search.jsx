@@ -24,7 +24,7 @@ function Search() {
       
   
    
-      setResults(res.data.map((user) => ({ name: user.username, }))); //
+      setResults(res.data.map((user) => ({ name: user.username, userId: user.user_id}))); //
     } catch (error) {
       console.error("Error fetching profiles:", error);
     }
@@ -63,7 +63,9 @@ function Search() {
       "Content-Type": "application/json",
       authorization: user?.accessToken,
     };
-  
+  console.log("following_id" + item.userId);
+  console.log("following_id" + userID);
+
 
     try {
       const res = await axios.post("http://localhost:5432/api/v1/following", requestBody, {

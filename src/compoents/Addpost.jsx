@@ -32,6 +32,8 @@ function Addpost({ setAdd }) {
     try {
       const formData = new FormData();
       formData.append("image", uploadPost);
+      console.log("userdata===>>",userID)
+      console.log("usertoken==ssss=>>",user?.accessToken)
 
       const res = await axios.post(
         `http://localhost:5432/api/v1/upload-image-post-local/${userID}`,
@@ -39,7 +41,7 @@ function Addpost({ setAdd }) {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            authorization: user?.token,
+            authorization: user?.accessToken,
           },
         }
       );

@@ -4,8 +4,8 @@ import { login, } from "../features/authSlice";
 import axios from "axios";
 
 export default function SignupForm({ setLogin }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [namepassed, setName] = useState("");
+  const [emailPassed, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export default function SignupForm({ setLogin }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (email && password) {
+    if (emailPassed && password) {
       dispatch(login());
       fetch();
     } else {
@@ -29,8 +29,8 @@ export default function SignupForm({ setLogin }) {
     const res = await axios.post(
       "http://localhost:5432/api/v1/register",
       {
-        username: name,
-        email: email,
+        username: namepassed,
+        email: emailPassed,
         password: password,
 
       },
@@ -42,9 +42,17 @@ export default function SignupForm({ setLogin }) {
     );
     console.log("res=====",res)
     console.log("res=====",res.data.accessToken)
-    const token = res.data.accessToken
+    console.log("res=====",res.data.user)
+    const name = res.data.user.username
+    const email = res.data.user.email
+    const accessToken = res.data.user.accessToken
+    const dob = res.data.user.dob
+    const bio = res.data.user.bio
+    const profilePicture = res.data.user.avatar ? res.data.user.avatar : ''
+    const user_id =res.data.user.user_id
+    const username = res.data.user.username
     
-    dispatch(login({name,email,token}));
+    dispatch(login({name,email,accessToken,dob,bio,profilePicture,user_id,username}));
    
   };
   
@@ -61,7 +69,7 @@ export default function SignupForm({ setLogin }) {
               type="text"
               placeholder="Enter your full name"
               className="w-full px-4 py-2 mt-2 border border-gray-700 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              value={name}
+              value={namepassed}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -71,7 +79,7 @@ export default function SignupForm({ setLogin }) {
               type="email"
               placeholder="Enter your email"
               className="w-full px-4 py-2 mt-2 border border-gray-700 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              value={email}
+              value={emailPassed}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>

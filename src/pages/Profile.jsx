@@ -10,10 +10,6 @@ function Profile() {
   const userProfileSelector = useSelector((state) => state.auth.user);
   const uniquename = userProfileSelector?.name || userProfileSelector?.username 
   console.log("userProfileSelector",userProfileSelector)
-
-
- 
-
   const [isEditing, setIsEditing] = useState(false);
 
   const [newEmail] = useState(userProfileSelector?.email || "");
@@ -43,20 +39,30 @@ function Profile() {
         dob: res.data.birthdate,
         bio: res.data.bio,
         profilePicture: res.data.avatar,
+        user_id:res.data.user_id,
+        accessToken:userProfileSelector?.accessToken,
       };
 
       dispatch(userProfile(updatedUser2));
+      console.log("accessToken",userProfileSelector?.accessToken)
 
     };
+    setTimeout(() => {
+      fetchapi();
+      console.log("Started fetchAPi after 3sec")
+      
+    }, 3000);
 
-    fetchapi();
   }, []);
 
   const handleUpdate = async () => {
-    if (!userProfileSelector?.token) {
+    if (!userProfileSelector?.accessToken) {
       alert("User is not authenticated.");
       return;
     }
+
+    alert(""+newEmail);
+    alert(userProfileSelector?.accessToken);
 
     try {
       const res = await axios.put(
@@ -67,14 +73,14 @@ function Profile() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: userProfileSelector?.accessToken,
+            authorization: userProfileSelector?.accessToken,
           },
         }
       );
-    
+    console.log("res  ==>",res)
 
 
-
+    alert("Error updating profile.");
     } catch (error) {
       console.error(
         "Error updating profile:",
@@ -100,7 +106,7 @@ function Profile() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            authorization: userProfileSelector?.accesstoken,
+            authorization: userProfileSelector?.accessToken,
           },
         }
       );
@@ -124,7 +130,7 @@ function Profile() {
       reader.readAsDataURL(selectedFile);
     }
   };
-console.log("newProfilePicture",userProfileSelector.newProfilePicture)
+
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-gray-900 text-white shadow-lg rounded-xl transition-all duration-300">
       <form onSubmit={handleSubmit}>

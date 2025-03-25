@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-const user = JSON.parse(sessionStorage.getItem("user")) || null;
+
 
 const initialState = {
-  isAuthenticated:  !!user, 
-  user: user,
+  isAuthenticated:  false, 
+
 };
 
 
@@ -14,12 +14,13 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     userData: (state, action) => {
-      const { email, name, password } = action.payload;
+      const { name,email,accessToken,dob,bio,profilePicture,user_id,username} = action.payload;
 
     
-    state.user = { email, name, password }; 
+    state.user = { name,email,accessToken,dob,bio,profilePicture,user_id,username}; 
     console.log("StateName==>",state)
     console.log("State.user",state.user)
+    
   
     },
     login: (state, action) => {

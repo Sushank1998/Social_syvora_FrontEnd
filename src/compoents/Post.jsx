@@ -56,6 +56,7 @@ function Post() {
       const res = await axios.get(`http://localhost:5432/api/v1/posts`, {
         headers: {
           "Content-Type": "application/json",
+          authorization: user?.accessToken,
         },
       });
 
