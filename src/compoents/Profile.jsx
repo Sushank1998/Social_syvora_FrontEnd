@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../features/authSlice";
 import { MdHomeFilled } from "react-icons/md";
+import { MdLibraryAdd } from "react-icons/md";
 import { FaGrinBeam } from "react-icons/fa";
 import { IoNotifications } from "react-icons/io5";
 import { RiLogoutCircleRLine } from "react-icons/ri";
@@ -24,6 +25,7 @@ function Profile() {
 
   const sidebar = [
     { path: "/", icon: <MdHomeFilled />, title: "Main" },
+    { path: "/addpost", icon:  <MdLibraryAdd/>, title: "UploadPost" },
     { path: "/profile", icon: <FaGrinBeam />, title: "Profile" },
     { path: "/mypost", icon: <BsFillPostageHeartFill />, title: "MyPost" },
   ];

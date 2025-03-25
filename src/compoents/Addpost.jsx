@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RxCross2 } from "react-icons/rx";
 import { addphoto } from "../features/addpostSlice";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function Addpost({ setAdd }) {
+function Addpost() {
   const [image, setImage] = useState(null);
   const [uploadPost, setUploadPost] = useState(null);
   const [description, setDescription] = useState("");
@@ -15,7 +15,7 @@ function Addpost({ setAdd }) {
   const user = useSelector((state) => state.auth.user);
   console.log("addPhoto>>", addPhoto);
   console.log("user===ggg===>>", user);
-
+  const navigate = useNavigate()
   const [userID] = useState(user && user.user_id != null ? user.user_id : '');
 
   const handleImageChange = (e) => {
@@ -48,8 +48,9 @@ function Addpost({ setAdd }) {
       console.log("Profile updated:", res.data);
 
       dispatch(addphoto({ description, image }));
+      navigate("/")
 
-      setAdd(false);
+     
       setDescription("");
       setImage(null);
     } catch (error) {
@@ -59,14 +60,12 @@ function Addpost({ setAdd }) {
       );
     }
   };
-  const handleCross = () => {
-    setAdd((prev) => !prev);
-  };
+ 
 
   return (
     <div className="w-full max-w-lg p-6 rounded-2xl shadow-xl bg-gray-900 text-white mx-auto">
       <h2 className="text-2xl font-extrabold text-center mb-6">
-        <RxCross2 className="cursor-pointer" onClick={handleCross} />
+       
         Add New Post
       </h2>
 

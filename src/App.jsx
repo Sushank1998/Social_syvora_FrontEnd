@@ -4,6 +4,7 @@ import Layout from './layout/Layout'
 import Profile from './pages/Profile'
 import Post from './compoents/Post'
 import MyPost from './pages/Mypost'
+import Addpost from './compoents/Addpost'
 
 function App() {
   const router = createBrowserRouter([
@@ -21,6 +22,10 @@ function App() {
         {
           path:'/mypost',
           element:<MyPost/>
+        },
+        {
+          path:'/addpost',
+          element:<Addpost/>
         },
       ]
     }
