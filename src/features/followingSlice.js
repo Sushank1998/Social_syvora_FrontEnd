@@ -11,10 +11,13 @@ export const followingSlice = createSlice({
         followerAdd : (state, action) => {
             if (!state.follow.includes(action.payload)) {
               state.follow.push(action.payload);
+              console.log("flowwer==>",action.payload)
             }
           },
-        followerRemove : (state, action) => {
-            state.follow = state.follow.filter((name) => name !== action.payload);
+      
+          followerRemove: (state, action) => {
+            // Directly modify state.follow array, not state.searchName.follow
+            state.follow = state.follow.filter(user => user.userId !== action.payload.userId);
           },
     }
 })

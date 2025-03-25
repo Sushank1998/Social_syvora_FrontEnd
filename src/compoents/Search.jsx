@@ -11,7 +11,8 @@ function Search() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
-  const [userID] =useState(user?.user_id)
+  const [userID] = useState(user && user.user_id != null ? user.user_id : '');
+
 
   const fetchname = async () => {
     try {
@@ -22,9 +23,13 @@ function Search() {
         },
       });
       
+      console.log("res=====>", res.data);
   
-   
-      setResults(res.data.map((user) => ({ name: user.username, userId: user.user_id}))); //
+    if(res.status ==200)
+      setResults(res.data?.map((user) => ({
+        name: user?.username || '',  // If username is undefined or null, set it to an empty string
+        userId: user?.user_id || ''  // If user_id is undefined or null, set it to an empty string
+      })) || []); 
     } catch (error) {
       console.error("Error fetching profiles:", error);
     }
@@ -63,9 +68,7 @@ function Search() {
       "Content-Type": "application/json",
       authorization: user?.accessToken,
     };
-  console.log("following_id" + item.userId);
-  console.log("following_id" + userID);
-
+  
 
     try {
       const res = await axios.post("http://localhost:5432/api/v1/following", requestBody, {

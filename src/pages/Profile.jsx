@@ -8,8 +8,11 @@ function Profile() {
 
   // const user = useSelector((state) => state.auth.user);
   const userProfileSelector = useSelector((state) => state.auth.user);
+
   const uniquename = userProfileSelector?.name || userProfileSelector?.username 
+
   console.log("userProfileSelector",userProfileSelector)
+  
   const [isEditing, setIsEditing] = useState(false);
 
   const [newEmail] = useState(userProfileSelector?.email || "");
@@ -19,7 +22,8 @@ function Profile() {
   const [newProfilePicture, setNewProfilePicture] = useState(
     "http://localhost:5432" + userProfileSelector?.profilePicture || ""
   );
-
+console.log("userProfileSelector==n-useSlector==>",userProfileSelector)
+console.log("ins_value_of_bIO_==>",userProfileSelector?.bio, ) //un
   
   useEffect(() => {
     const fetchapi = async () => {
@@ -47,49 +51,39 @@ function Profile() {
       console.log("accessToken",userProfileSelector?.accessToken)
 
     };
-    setTimeout(() => {
       fetchapi();
-      console.log("Started fetchAPi after 3sec")
-      
-    }, 3000);
-
   }, []);
 
   const handleUpdate = async () => {
-    if (!userProfileSelector?.accessToken) {
-      alert("User is not authenticated.");
-      return;
-    }
-
-    alert(""+newEmail);
-    alert(userProfileSelector?.accessToken);
-
-    try {
-      const res = await axios.put(
-        `http://localhost:5432/api/v1/user/${newEmail}`,
-        {
-          bio: bio,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: userProfileSelector?.accessToken,
+    if (userProfileSelector?.accessToken) {
+      try {
+        const res = await axios.put(
+          `http://localhost:5432/api/v1/user/${newEmail}`,
+          {
+            bio: bio,
           },
-        }
-      );
-    console.log("res  ==>",res)
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: userProfileSelector?.accessToken,
+            },
+          }
+        );
+      console.log("res_handleUpdate  ==>",res)
 
-
-    alert("Error updating profile.");
-    } catch (error) {
-      console.error(
-        "Error updating profile:",
-        error.response || error.message || error
-      );
-      alert("Error updating profile.");
-    }
-  };
-
+        
+          
+      } catch (error) {
+        console.error(
+          "Error updating profile:",
+          error.response || error.message || error
+        );
+      }
+      
+    }else{
+      alert("User is not authenticated.");
+    };
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file) {
@@ -118,7 +112,7 @@ function Profile() {
       alert("Image upload failed.");
     }
   };
-
+ 
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
@@ -130,6 +124,7 @@ function Profile() {
       reader.readAsDataURL(selectedFile);
     }
   };
+
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-gray-900 text-white shadow-lg rounded-xl transition-all duration-300">

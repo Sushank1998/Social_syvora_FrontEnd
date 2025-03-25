@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../features/authSlice";
 import axios from "axios";
 import {userProfile} from "../features/userProfileSlice"
+import { resetState } from '../features/resetRx';
 
 export default function LoginForm({ setLogin }) {
   const [email, setEmail] = useState("");
@@ -30,7 +31,7 @@ export default function LoginForm({ setLogin }) {
       if (res.status === 200) {
 
         sessionStorage.setItem("user", JSON.stringify(res.data));
-
+        dispatch(resetState());
         dispatch(login(res.data)); 
       } else {
         alert("Invalid credentials, please try again.");

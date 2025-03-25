@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, } from "../features/authSlice";
 import axios from "axios";
+import { resetState } from '../features/resetRx';
 
 export default function SignupForm({ setLogin }) {
   const [namepassed, setName] = useState("");
@@ -51,7 +52,7 @@ export default function SignupForm({ setLogin }) {
     const profilePicture = res.data.user.avatar ? res.data.user.avatar : ''
     const user_id =res.data.user.user_id
     const username = res.data.user.username
-    
+    dispatch(resetState());
     dispatch(login({name,email,accessToken,dob,bio,profilePicture,user_id,username}));
    
   };
