@@ -12,10 +12,19 @@ export const userProfileSlice = createSlice({
             const { email, username, profilePicture,dob,bio } = action.payload;
             
             state.user = { email, username, profilePicture,dob,bio }; 
-            console.log("action.payload_userProfileSlice_",action.payload)
-        }
+            console.log("action.payload_userProfileSlice_ss==>",action.payload)
+        },
+        updateProfilePicturePx: (state, action) => {
+            state.user.profilePicture = action.payload;
+          },
+
+          updateProfileDataPx: (state, action) => {
+            state.user.bio = action.payload;
+          },  
     }
 })
 
-export const {userProfile} = userProfileSlice.actions;
+
+
+export const {userProfile,updateProfilePicturePx,updateProfileDataPx} = userProfileSlice.actions;
 export default userProfileSlice.reducer;

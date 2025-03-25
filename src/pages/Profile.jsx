@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { userProfile } from "../features/userProfileSlice";
+import { userProfile,updateProfilePicturePx,updateProfileDataPx } from "../features/userProfileSlice";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import defaultBioImage from "../assets/download.png"
 
 function Profile() {
   const dispatch = useDispatch();
 
+
+  const userProfileSelectorRx = useSelector((state) => state.userProfile.user);
+  
+  const [profileImagedetails, setProfileImagedetails] = useState(
+    userProfileSelectorRx && userProfileSelectorRx.profilePicture
+      ? "http://localhost:5432" + userProfileSelectorRx.profilePicture
+      : defaultBioImage // or any fallback value you want
+  );
   // const user = useSelector((state) => state.auth.user);
   const userProfileSelector = useSelector((state) => state.auth.user);
 
@@ -14,13 +24,12 @@ function Profile() {
   console.log("userProfileSelector",userProfileSelector)
   
   const [isEditing, setIsEditing] = useState(false);
-
   const [newEmail] = useState(userProfileSelector?.email || "");
   const [newPassword, setNewPassword] = useState("");
-  const [bio, setBio] = useState(userProfileSelector?.bio || "");
+  const [bio, setBio] = useState(userProfileSelectorRx?.bio ? userProfileSelectorRx.bio : 'No bio available');
   const [file, setFile] = useState(null);
   const [newProfilePicture, setNewProfilePicture] = useState(
-    "http://localhost:5432" + userProfileSelector?.profilePicture || ""
+    "http://localhost:5432" + userProfileSelector?.profilePicture || defaultBioImage
   );
 console.log("userProfileSelector==n-useSlector==>",userProfileSelector)
 console.log("ins_value_of_bIO_==>",userProfileSelector?.bio, ) //un
@@ -70,6 +79,13 @@ console.log("ins_value_of_bIO_==>",userProfileSelector?.bio, ) //un
           }
         );
       console.log("res_handleUpdate  ==>",res)
+      setIsEditing(false)
+    
+
+      if(res.status===200)
+        {
+          dispatch(updateProfileDataPx(bio))
+        }
 
         
           
@@ -105,7 +121,12 @@ console.log("ins_value_of_bIO_==>",userProfileSelector?.bio, ) //un
         }
       );
       console.log("Profile updatedsssss:", res.data);
+      console.log("Profile updatedsssss:", res.data.imageUrl);
 
+      if(res.status===200)
+      {
+        dispatch(updateProfilePicturePx(res.data.imageUrl))
+      }
       alert("Profile updated successfully!");
     } catch (error) {
       console.error("Failed to upload image", error);
@@ -117,11 +138,13 @@ console.log("ins_value_of_bIO_==>",userProfileSelector?.bio, ) //un
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
+      setProfileImagedetails(URL.createObjectURL(selectedFile));
       const reader = new FileReader();
       reader.onload = (e) => {
         setNewProfilePicture(e.target.result);
       };
       reader.readAsDataURL(selectedFile);
+
     }
   };
 
@@ -131,8 +154,8 @@ console.log("ins_value_of_bIO_==>",userProfileSelector?.bio, ) //un
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col items-center">
           <img
-            src={"http://localhost:5432" + userProfileSelector?.profilePicture }
-            alt="Profile"
+            src={profileImagedetails}
+            alt="ProfileImage"
             className="w-24 h-24 rounded-full border-4 border-[#ff6600] shadow-md hover:scale-105 transition-transform duration-300"
           />
 
@@ -156,7 +179,7 @@ console.log("ins_value_of_bIO_==>",userProfileSelector?.bio, ) //un
           </h2>
           
           <p className="text-gray-400">{userProfileSelector?.email}</p>
-          <p className="text-gray-500 text-sm">{userProfileSelector?.bio}</p>
+          <p className="text-gray-500 text-sm">{userProfileSelectorRx?.bio ? userProfileSelectorRx.bio : 'No bio available'}</p>
         </div>
       </form>
 

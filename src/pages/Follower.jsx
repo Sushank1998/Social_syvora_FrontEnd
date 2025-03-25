@@ -7,7 +7,7 @@ function Follower() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const rxFollowers = useSelector((state) => state.searchName.follow);
-  const [followers, setFollowers] = useState([]); // State to hold followers data
+  const [followers, setFollowers] = useState(""); // State to hold followers data
   const [userID] = useState(user && user.user_id != null ? user.user_id : '');
 
   // Fetch followers when the component loads
@@ -59,8 +59,9 @@ function Follower() {
 
       // If the API call is successful, dispatch the action to remove the follower from the Redux state
       if (response.status === 200) {
-        
-        setFollowers(followers.filter(f => f.userId !== follower.userId));
+        console.log(follower);
+        console.log(followers);
+       // setFollowers(followers.filter(f => f.userId !== follower.userId));
         dispatch(followerRemove(follower));  // Assuming `followerRemove` handles updating the state
         console.log('Unfollowed successfully');
       } else {

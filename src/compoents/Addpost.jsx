@@ -16,7 +16,7 @@ function Addpost({ setAdd }) {
   console.log("addPhoto>>", addPhoto);
   console.log("user===ggg===>>", user);
 
-  const [userID] = useState(user.user_id);
+  const [userID] = useState(user && user.user_id != null ? user.user_id : '');
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -24,7 +24,6 @@ function Addpost({ setAdd }) {
       setImage(URL.createObjectURL(file));
       setUploadPost(file);
     }
-    alert(file);
   };
 
   const handleSubmit = async (e) => {

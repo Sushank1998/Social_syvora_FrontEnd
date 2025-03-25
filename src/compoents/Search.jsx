@@ -74,7 +74,10 @@ function Search() {
       const res = await axios.post("http://localhost:5432/api/v1/following", requestBody, {
         headers: headers,
       });
-      
+      if(res.status===200)
+      {
+        setQuery("");
+      }
       console.log("Follow API response:", res.data);
   
       setHide(false); 
