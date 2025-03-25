@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../features/authSlice";
 import axios from "axios";
-import {userProfile} from "../features/userProfileSlice"
 import { resetState } from '../features/resetRx';
 
 export default function LoginForm({ setLogin }) {
@@ -30,7 +29,7 @@ export default function LoginForm({ setLogin }) {
       console.log("Login Response:", res.data);
       if (res.status === 200) {
 
-        sessionStorage.setItem("user", JSON.stringify(res.data));
+        
         dispatch(resetState());
         dispatch(login(res.data)); 
       } else {

@@ -8,7 +8,7 @@ import {userProfile} from "../features/userProfileSlice"
 import { useDispatch, useSelector } from 'react-redux'
 
 function Home() {
-  const user = JSON.parse(sessionStorage.getItem("user")) || null;
+
 
   const dispatch = useDispatch()
   const userProfileSelector = useSelector((state) => state.auth.user);
